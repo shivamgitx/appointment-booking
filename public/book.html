@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book an appointment — BookEase</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/api.js" defer></script>
+  <script src="/js/book.js" defer></script>
+</head>
+<body>
+  <header class="nav" id="nav"></header>
+
+  <main class="container narrow">
+    <section class="card">
+      <h1>Book an appointment</h1>
+      <p class="hint">Open Monday–Saturday, hourly slots 09:00–16:00.</p>
+
+      <form id="book-form" novalidate>
+        <div class="field">
+          <label for="date">Date</label>
+          <input type="date" id="date" name="date" required>
+          <p class="field-error" id="date-error" hidden></p>
+        </div>
+
+        <div class="field">
+          <span class="label-like" id="slots-label">Available times</span>
+          <div class="slots" id="slots" role="group" aria-labelledby="slots-label">
+            <p class="hint" id="slots-empty">Choose a date to see available times.</p>
+          </div>
+          <p class="field-error" id="time-error" hidden></p>
+        </div>
+
+        <div class="field">
+          <label for="note">Note <span class="optional">(optional)</span></label>
+          <textarea id="note" name="note" rows="3" maxlength="500" placeholder="Reason for visit, room number, ..."></textarea>
+          <p class="field-error" id="note-error" hidden></p>
+        </div>
+
+        <p class="form-error" id="form-error" hidden></p>
+        <p class="form-success" id="form-success" hidden></p>
+
+        <button type="submit" class="btn btn-primary btn-block" id="submit-btn">Confirm booking</button>
+      </form>
+    </section>
+  </main>
+</body>
+</html>

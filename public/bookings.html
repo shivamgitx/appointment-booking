@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My bookings — BookEase</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/api.js" defer></script>
+  <script src="/js/bookings.js" defer></script>
+</head>
+<body>
+  <header class="nav" id="nav"></header>
+
+  <main class="container">
+    <section class="card">
+      <div class="row-between">
+        <h1>My bookings</h1>
+        <a class="btn btn-primary" href="/book.html">New booking</a>
+      </div>
+
+      <p class="form-error" id="load-error" hidden></p>
+      <p class="hint" id="loading">Loading bookings…</p>
+
+      <div id="content" hidden>
+        <h2 id="upcoming-title" hidden>Upcoming</h2>
+        <ul class="booking-list" id="upcoming-list"></ul>
+        <p class="empty" id="upcoming-empty" hidden>No upcoming bookings.</p>
+
+        <h2 id="past-title" hidden>Past</h2>
+        <ul class="booking-list" id="past-list"></ul>
+        <p class="empty" id="past-empty" hidden>No past bookings yet.</p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
