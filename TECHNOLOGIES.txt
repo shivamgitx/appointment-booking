@@ -1,0 +1,97 @@
+===============================================================
+  TECHNOLOGIES USED — BookEase Appointment Booking Website
+===============================================================
+
+PROJECT TYPE
+------------
+Full-stack web application (single-server architecture:
+frontend + REST API + database in one Node.js process)
+
+
+1. FRONTEND
+-----------
+- HTML5 ...................... Semantic multi-page markup
+                              (index, register, login, book, bookings)
+- CSS3 ....................... Custom design system, no framework
+                              - Glassmorphism, gradients, dark mode
+                              - 3D transforms / perspective effects
+                              - Keyframe animations, responsive layout
+                              - CSS custom properties (theming)
+- JavaScript (ES2022+) ....... Vanilla JS, no framework/build step
+                              - fetch API for server communication
+                              - DOM manipulation, event handling
+- Inter Variable Font ........ Self-hosted woff2 (@fontsource-variable/inter)
+                              served locally for CSP + offline support
+- SVG (inline) ............... Icons and illustrations, no icon library
+
+
+2. BACKEND
+----------
+- Node.js v26.5.0 ............ Runtime environment
+- Express 5.3.0 .............. Web framework / REST API
+                              - Routing, JSON body parsing
+                              - Static file serving, error handling
+- bcryptjs 3.0.3 ............. Password hashing (10 salt rounds)
+- Custom session auth ........ Server-side sessions in SQLite,
+                              httpOnly + SameSite=Lax cookies
+- Custom rate limiter ........ 20 req/min/IP on login & register
+- Custom CSRF defense ........ SameSite cookies + mandatory
+                              JSON Content-Type on mutations (415)
+
+
+3. DATABASE
+-----------
+- SQLite 3 ................... Via Node.js built-in "node:sqlite"
+                              (DatabaseSync) — zero native dependencies
+- WAL journal mode ........... Better concurrent read performance
+- Tables: users, sessions, bookings
+- Partial unique index ....... One confirmed booking per date+time slot
+
+
+4. TESTING & QA
+---------------
+- node:test (built-in) ....... 39 API + database integration tests
+- Playwright 1.65.0 .......... 11 end-to-end browser tests (Chromium)
+                              - User journeys, console-error auditing
+                              - Visual QA screenshots (light/dark/mobile)
+- npm audit .................. Dependency vulnerability scanning (0 issues)
+
+
+5. TOOLING & RUNTIME
+--------------------
+- npm 11.17.0 ................ Package manager
+- Git 2.50.1 ................. Version control (checkpoints)
+- Scripts:
+    npm start     -> production server (node server/index.js)
+    npm run dev   -> dev server with auto-reload (--watch)
+    npm test      -> API + DB test suite
+    npm run test:e2e -> Playwright end-to-end suite
+    npm run test:all -> both suites
+
+
+6. SECURITY HEADERS / CONFIG
+-----------------------------
+- Content-Security-Policy .... default-src 'self', no unsafe-inline
+- X-Content-Type-Options ...... nosniff
+- X-Frame-Options ............. DENY
+- Referrer-Policy ............. same-origin
+- Trust proxy ................. Secure cookies behind HTTPS (X-Forwarded-Proto)
+- No secrets/keys in codebase
+
+
+7. NOT USED (deliberate choices)
+--------------------------------
+- No React/Vue/Angular        -> multi-page vanilla JS (no build step)
+- No Tailwind/Bootstrap       -> hand-written CSS design system
+- No Webpack/Vite             -> no compilation needed
+- No Redis/PostgreSQL         -> SQLite (single-file, zero setup)
+- No JWT                      -> revocable server-side sessions
+- No Docker requirement       -> runs directly with npm start
+
+
+DEPLOYMENT
+----------
+- Single command: npm start (default port 3000, PORT/DATA_FILE env vars)
+- Environment: any platform supporting Node.js 26+
+- Database file: data/app.db (auto-created)
+===============================================================
