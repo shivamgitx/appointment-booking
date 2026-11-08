@@ -151,7 +151,7 @@ describe('end-to-end user journeys', () => {
     const text = await item.textContent();
     assert.match(text, /Confirmed/);
     assert.match(text, /E2E test visit/);
-    assert.match(text, /\w{3}, \w{3} \d{1,2}, 2026 · \d{2}:\d{2}/);
+    assert.match(text, /\w{3}, \w{3} \d{1,2}, \d{4} · \d{2}:\d{2}/);
     assert.ok(await page.isVisible('#upcoming-title'));
     assert.ok(await item.locator('button:has-text("Cancel")').isVisible());
   });

@@ -22,6 +22,19 @@
 12. **CSP with no `unsafe-inline`/`unsafe-evals`** — forced all JS into external
     files and all styling into `styles.css` (no inline handlers/styles).
 13. **Tests run the app in-process on ephemeral ports with an injectable clock**
-    (`now()` option) — deterministic time-dependent tests (past slots, expired
+    (`now` option) — deterministic time-dependent tests (past slots, expired
     bookings) without flakiness.
 14. **No README created** — project memory lives in LOOP_*.md per instructions.
+15. **Self-hosted Inter variable font** (`@fontsource-variable/inter`, latin subset
+    copied to `public/fonts/`) instead of Google Fonts CDN — keeps CSP strict
+    (`font-src 'self'`) and works offline. Requires `font-src 'self'` in CSP.
+16. **Custom month-grid calendar instead of `<input type=date>`** — better UX
+    (Sunday closure + past dates visibly disabled). A hidden `#date` input stays
+    in sync for form semantics and tests.
+17. **`[hidden] { display: none !important }` global rule** — classes that set
+    `display` (buttons, flex boxes) otherwise defeat the `hidden` attribute.
+18. **3D effects via CSSOM custom properties** (`el.style.setProperty('--rx',…)`)
+    — allowed under `style-src 'self'` (CSP does not block CSSOM); verified by
+    the E2E console-error assertion which fails on any CSP violation.
+19. **Theme init runs in a non-deferred `theme.js` in `<head>`** — avoids a
+    light/dark flash before first paint (CSP forbids inline bootstrap scripts).

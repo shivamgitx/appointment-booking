@@ -21,5 +21,19 @@
   Secure cookie emitted behind X-Forwarded-Proto: https, data survives restart.
 - Final regression: 50/50 tests pass.
 
+## Cycle 4 — 2026-11-08 (beautification + 3D)
+- Implemented all 15 suggested beautifications + 3D effects:
+  gradient hero with parallax blobs, dark mode toggle (localStorage + system pref),
+  self-hosted Inter variable font, glassmorphism navbar/cards, SVG icons,
+  3D hard-shadow buttons + ripple, page fade-in, skeleton loading, toasts,
+  typing headline, animated stat counters, progress steps, custom month-grid
+  calendar, booking date-chips with status badges, split-screen auth pages
+  with floating labels + password strength meter, illustrated empty states,
+  sticky CTA, testimonials, mouse-driven 3D tilt on cards.
+- Visual QA via Playwright screenshots (light/dark/mobile): found & fixed
+  `[hidden]` being overridden by `.btn{display:inline-flex}` (E-08).
+- CSP updated with `font-src 'self'` for local Inter font.
+- Regression: 50/50 tests pass; screenshot run: 0 console errors.
+
 ## Status: COMPLETE
 All acceptance criteria met. No blockers. No open bugs.

@@ -2,6 +2,7 @@
 
 document.addEventListener('DOMContentLoaded', async () => {
   await initPage();
+  enhancePage();
 
   const form = document.getElementById('login-form');
   const submit = document.getElementById('submit-btn');
@@ -12,8 +13,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     event.preventDefault();
     clearFieldErrors(['email-error', 'password-error', 'form-error']);
 
-    const email = form.email.value.trim();
-    const password = form.password.value;
+    const email = form.elements.email.value.trim();
+    const password = form.elements.password.value;
 
     let valid = true;
     if (!email) {
@@ -24,11 +25,15 @@ document.addEventListener('DOMContentLoaded', async () => {
       showFieldError('password-error', 'Password is required.');
       valid = false;
     }
-    if (!valid) return;
+    if (!valid) {
+      toast('Please fill in both fields', 'error', 2400);
+      return;
+    }
 
     setButtonLoading(submit, true, 'Logging in…');
     try {
       await api('/api/auth/login', { method: 'POST', body: { email, password } });
+      toast('Welcome back!', 'success', 2000);
       window.location.href = safeNext(qs('next'));
     } catch (err) {
       setButtonLoading(submit, false);
@@ -39,6 +44,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       } else {
         showFormError('form-error', err.message);
       }
+      toast(err.message, 'error');
     }
   });
 });

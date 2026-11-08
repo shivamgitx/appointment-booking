@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Book an appointment — BookEase</title>
   <link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/theme.js"></script>
   <script src="/js/api.js" defer></script>
   <script src="/js/book.js" defer></script>
 </head>
@@ -12,28 +13,44 @@
   <header class="nav" id="nav"></header>
 
   <main class="container narrow">
-    <section class="card">
+    <section class="card reveal">
       <h1>Book an appointment</h1>
       <p class="hint">Open Monday–Saturday, hourly slots 09:00–16:00.</p>
 
+      <ol class="steps" id="steps">
+        <li id="step-1" class="done">Date</li>
+        <li id="step-2" class="active">Time</li>
+        <li id="step-3">Confirm</li>
+      </ol>
+
       <form id="book-form" novalidate>
         <div class="field">
-          <label for="date">Date</label>
-          <input type="date" id="date" name="date" required>
+          <span class="label-like" id="date-label">1 · Choose a date</span>
+          <div class="cal" id="calendar" role="group" aria-labelledby="date-label">
+            <div class="cal-head">
+              <button type="button" class="cal-nav" id="cal-prev" aria-label="Previous month">‹</button>
+              <span class="cal-title" id="cal-title">Month</span>
+              <button type="button" class="cal-nav" id="cal-next" aria-label="Next month">›</button>
+            </div>
+            <div class="cal-grid" id="cal-dow"></div>
+            <div class="cal-grid" id="cal-days"></div>
+          </div>
+          <input type="hidden" id="date" name="date">
+          <p class="selected-date-line" id="selected-date" hidden></p>
           <p class="field-error" id="date-error" hidden></p>
         </div>
 
         <div class="field">
-          <span class="label-like" id="slots-label">Available times</span>
+          <span class="label-like" id="slots-label">2 · Available times</span>
           <div class="slots" id="slots" role="group" aria-labelledby="slots-label">
             <p class="hint" id="slots-empty">Choose a date to see available times.</p>
           </div>
           <p class="field-error" id="time-error" hidden></p>
         </div>
 
-        <div class="field">
+        <div class="field textarea-field">
           <label for="note">Note <span class="optional">(optional)</span></label>
-          <textarea id="note" name="note" rows="3" maxlength="500" placeholder="Reason for visit, room number, ..."></textarea>
+          <textarea id="note" name="note" rows="3" maxlength="500" placeholder=" "></textarea>
           <p class="field-error" id="note-error" hidden></p>
         </div>
 
@@ -44,5 +61,9 @@
       </form>
     </section>
   </main>
+
+  <footer class="footer">
+    <p>BookEase demo — appointment booking system</p>
+  </footer>
 </body>
 </html>

@@ -20,3 +20,6 @@ Status legend: TODO | IN PROGRESS | DONE | BLOCKED | FAILED
 | T14 | Independent quality review/regression | DONE | XSS/secret/audit scan clean; 50/50 regression |
 | T15 | Deployment verification (prod build/env) | DONE | NODE_ENV=production smoke + Secure cookie + restart persistence |
 | T16 | Final report | DONE | see LOOP_TEST_REPORT.md |
+| T17 | Beautification round (15 items + 3D) | DONE | gradient/dark/glass/toasts/calendar/split-auth/tilt… |
+| T18 | Visual QA via screenshots + fix regressions | DONE | fixed E-08 `[hidden]` override; 0 console errors |
+| T19 | Post-beautification regression (50 tests) | DONE | 50/50 pass |

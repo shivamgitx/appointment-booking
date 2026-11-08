@@ -16,4 +16,6 @@ Format: ID | Component | Error | Root cause | Fix | Attempts | Status
 
 ## E-07 | Register form (pre-emptive catch during review) | `form.name` would return the form's name attribute (empty string), not the input | HTMLFormElement.name shadows named-element access | Switched to `form.elements.name` etc. | 1/3 | FIXED (found in code review before runtime)
 
+## E-08 | Visual review (beautification round) | `#hero-book` ("Book now") visible for logged-out users despite `hidden` attribute; same class of bug could hit `.strength`/`.selected-date-line` | `.btn { display: inline-flex }` overrides the UA `[hidden] { display: none }` rule | Added global `[hidden] { display: none !important; }` | 1/3 | FIXED
+
 All errors resolved within attempt limits. No recurring/blocking errors.

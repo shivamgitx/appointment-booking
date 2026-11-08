@@ -5,43 +5,71 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Register — BookEase</title>
   <link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/theme.js"></script>
   <script src="/js/api.js" defer></script>
   <script src="/js/register.js" defer></script>
 </head>
 <body>
   <header class="nav" id="nav"></header>
 
-  <main class="container narrow">
-    <section class="card auth-card">
-      <h1>Create your account</h1>
-      <form id="register-form" novalidate>
-        <div class="field">
-          <label for="name">Full name</label>
-          <input type="text" id="name" name="name" autocomplete="name" required minlength="2" maxlength="100">
-          <p class="field-error" id="name-error" hidden></p>
+  <main class="auth-wrap">
+    <section class="auth-split">
+      <aside class="auth-aside">
+        <div class="auth-orb o1"></div>
+        <div class="auth-orb o2"></div>
+        <div>
+          <h2>Join BookEase</h2>
+          <p>One account for all your appointments.</p>
+          <ul>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              Instant slot confirmation
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              Full booking history
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              Cancel anytime, one click
+            </li>
+          </ul>
         </div>
-        <div class="field">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" autocomplete="email" required>
-          <p class="field-error" id="email-error" hidden></p>
-        </div>
-        <div class="field">
-          <label for="password">Password</label>
-          <input type="password" id="password" name="password" autocomplete="new-password" required minlength="8">
-          <p class="hint">At least 8 characters.</p>
-          <p class="field-error" id="password-error" hidden></p>
-        </div>
-        <div class="field">
-          <label for="confirm">Confirm password</label>
-          <input type="password" id="confirm" name="confirm" autocomplete="new-password" required>
-          <p class="field-error" id="confirm-error" hidden></p>
-        </div>
+        <p class="mini">Free forever · No credit card required</p>
+      </aside>
 
-        <p class="form-error" id="form-error" hidden></p>
+      <div class="auth-form-side">
+        <h1>Create your account</h1>
+        <form id="register-form" novalidate>
+          <div class="field">
+            <input type="text" id="name" name="name" autocomplete="name" placeholder=" " required minlength="2" maxlength="100">
+            <label for="name">Full name</label>
+            <p class="field-error" id="name-error" hidden></p>
+          </div>
+          <div class="field">
+            <input type="email" id="email" name="email" autocomplete="email" placeholder=" " required>
+            <label for="email">Email</label>
+            <p class="field-error" id="email-error" hidden></p>
+          </div>
+          <div class="field">
+            <input type="password" id="password" name="password" autocomplete="new-password" placeholder=" " required minlength="8">
+            <label for="password">Password</label>
+            <div class="strength" id="strength" hidden><i></i><i></i><i></i><i></i></div>
+            <p class="strength-text" id="strength-text" hidden></p>
+            <p class="field-error" id="password-error" hidden></p>
+          </div>
+          <div class="field">
+            <input type="password" id="confirm" name="confirm" autocomplete="new-password" placeholder=" " required>
+            <label for="confirm">Confirm password</label>
+            <p class="field-error" id="confirm-error" hidden></p>
+          </div>
 
-        <button type="submit" class="btn btn-primary btn-block" id="submit-btn">Register</button>
-      </form>
-      <p class="switch-line">Already have an account? <a href="/login.html">Log in</a></p>
+          <p class="form-error" id="form-error" hidden></p>
+
+          <button type="submit" class="btn btn-primary btn-block" id="submit-btn">Register</button>
+        </form>
+        <p class="switch-line">Already have an account? <a href="/login.html">Log in</a></p>
+      </div>
     </section>
   </main>
 </body>

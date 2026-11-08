@@ -5,32 +5,59 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Log in — BookEase</title>
   <link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/theme.js"></script>
   <script src="/js/api.js" defer></script>
   <script src="/js/login.js" defer></script>
 </head>
 <body>
   <header class="nav" id="nav"></header>
 
-  <main class="container narrow">
-    <section class="card auth-card">
-      <h1>Welcome back</h1>
-      <form id="login-form" novalidate>
-        <div class="field">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" autocomplete="email" required>
-          <p class="field-error" id="email-error" hidden></p>
+  <main class="auth-wrap">
+    <section class="auth-split">
+      <aside class="auth-aside">
+        <div class="auth-orb o1"></div>
+        <div class="auth-orb o2"></div>
+        <div>
+          <h2>Welcome back</h2>
+          <p>Your appointments are waiting for you.</p>
+          <ul>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              Pick up where you left off
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              Manage upcoming bookings
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              Review your visit history
+            </li>
+          </ul>
         </div>
-        <div class="field">
-          <label for="password">Password</label>
-          <input type="password" id="password" name="password" autocomplete="current-password" required>
-          <p class="field-error" id="password-error" hidden></p>
-        </div>
+        <p class="mini">Secure login · Sessions expire after 7 days</p>
+      </aside>
 
-        <p class="form-error" id="form-error" hidden></p>
+      <div class="auth-form-side">
+        <h1>Log in to your account</h1>
+        <form id="login-form" novalidate>
+          <div class="field">
+            <input type="email" id="email" name="email" autocomplete="email" placeholder=" " required>
+            <label for="email">Email</label>
+            <p class="field-error" id="email-error" hidden></p>
+          </div>
+          <div class="field">
+            <input type="password" id="password" name="password" autocomplete="current-password" placeholder=" " required>
+            <label for="password">Password</label>
+            <p class="field-error" id="password-error" hidden></p>
+          </div>
 
-        <button type="submit" class="btn btn-primary btn-block" id="submit-btn">Log in</button>
-      </form>
-      <p class="switch-line">New here? <a href="/register.html">Create an account</a></p>
+          <p class="form-error" id="form-error" hidden></p>
+
+          <button type="submit" class="btn btn-primary btn-block" id="submit-btn">Log in</button>
+        </form>
+        <p class="switch-line">New here? <a href="/register.html">Create an account</a></p>
+      </div>
     </section>
   </main>
 </body>

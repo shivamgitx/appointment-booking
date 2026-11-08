@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My bookings — BookEase</title>
   <link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/theme.js"></script>
   <script src="/js/api.js" defer></script>
   <script src="/js/bookings.js" defer></script>
 </head>
@@ -12,19 +13,36 @@
   <header class="nav" id="nav"></header>
 
   <main class="container">
-    <section class="card">
+    <section class="card reveal">
       <div class="row-between">
         <h1>My bookings</h1>
         <a class="btn btn-primary" href="/book.html">New booking</a>
       </div>
 
       <p class="form-error" id="load-error" hidden></p>
-      <p class="hint" id="loading">Loading bookings…</p>
+
+      <div id="loading">
+        <div class="skeleton sk-row"></div>
+        <div class="skeleton sk-row"></div>
+        <div class="skeleton sk-row"></div>
+      </div>
 
       <div id="content" hidden>
         <h2 id="upcoming-title" hidden>Upcoming</h2>
         <ul class="booking-list" id="upcoming-list"></ul>
-        <p class="empty" id="upcoming-empty" hidden>No upcoming bookings.</p>
+        <div class="empty" id="upcoming-empty" hidden>
+          <svg viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="14" y="20" width="68" height="60" rx="10" fill="currentColor" opacity="0.08"/>
+            <rect x="14" y="20" width="68" height="60" rx="10" stroke="currentColor" stroke-width="3" opacity="0.35"/>
+            <path d="M14 36h68" stroke="currentColor" stroke-width="3" opacity="0.35"/>
+            <path d="M30 12v14M66 12v14" stroke="currentColor" stroke-width="4" stroke-linecap="round" opacity="0.5"/>
+            <circle cx="48" cy="60" r="12" stroke="currentColor" stroke-width="3" opacity="0.4"/>
+            <path d="m43 60 3.5 3.5L54 56" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+          </svg>
+          <h3>No upcoming bookings</h3>
+          <p>When you book a slot it will show up here.</p>
+          <a class="btn btn-primary btn-small" href="/book.html">Book an appointment</a>
+        </div>
 
         <h2 id="past-title" hidden>Past</h2>
         <ul class="booking-list" id="past-list"></ul>
@@ -32,5 +50,9 @@
       </div>
     </section>
   </main>
+
+  <footer class="footer">
+    <p>BookEase demo — appointment booking system</p>
+  </footer>
 </body>
 </html>

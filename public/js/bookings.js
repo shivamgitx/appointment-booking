@@ -1,13 +1,17 @@
 'use strict';
 
-function formatDate(dateStr) {
+const WD_SHORT = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const MO_SHORT = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+function parts(dateStr) {
   const [y, m, d] = dateStr.split('-').map(Number);
-  return new Date(y, m - 1, d).toLocaleDateString(undefined, {
-    weekday: 'short',
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  });
+  const dt = new Date(y, m - 1, d);
+  return {
+    mon: MO_SHORT[m - 1],
+    num: String(d),
+    dow: WD_SHORT[dt.getDay()],
+    long: `${WD_SHORT[dt.getDay()]}, ${MO_SHORT[m - 1]} ${d}, ${y}`,
+  };
 }
 
 function bookingItem(booking, { cancellable }) {
@@ -15,18 +19,50 @@ function bookingItem(booking, { cancellable }) {
   li.className = 'booking-item';
   li.dataset.id = String(booking.id);
 
+  const p = parts(booking.date);
+
+  const chip = document.createElement('div');
+  chip.className = 'date-chip';
+  chip.setAttribute('aria-hidden', 'true');
+  const mon = document.createElement('span');
+  mon.className = 'mon';
+  mon.textContent = p.mon;
+  const num = document.createElement('span');
+  num.className = 'num';
+  num.textContent = p.num;
+  const dow = document.createElement('span');
+  dow.className = 'dow';
+  dow.textContent = p.dow;
+  chip.appendChild(mon);
+  chip.appendChild(num);
+  chip.appendChild(dow);
+  li.appendChild(chip);
+
   const main = document.createElement('div');
   main.className = 'booking-main';
 
-  const title = document.createElement('span');
+  const title = document.createElement('div');
   title.className = 'booking-title';
-  title.textContent = `${formatDate(booking.date)} · ${booking.time}`;
+  const when = document.createElement('time');
+  when.setAttribute('datetime', `${booking.date}T${booking.time}:00`);
+  when.textContent = `${p.long} · ${booking.time}`;
+  title.appendChild(when);
 
-  const meta = document.createElement('span');
+  const badge = document.createElement('span');
+  badge.className = booking.past ? 'badge badge-past' : 'badge badge-ok';
+  badge.textContent = booking.past ? 'Completed' : 'Confirmed';
+  title.appendChild(badge);
+
+  if (!booking.past) {
+    const soon = document.createElement('span');
+    soon.className = 'badge badge-time';
+    soon.textContent = 'Upcoming';
+    title.appendChild(soon);
+  }
+
+  const meta = document.createElement('div');
   meta.className = 'booking-meta';
-  const bits = [booking.status === 'confirmed' ? 'Confirmed' : booking.status];
-  if (booking.note) bits.push(booking.note);
-  meta.textContent = bits.join(' — ');
+  meta.textContent = booking.note ? booking.note : 'No note added';
 
   main.appendChild(title);
   main.appendChild(meta);
@@ -43,11 +79,12 @@ function bookingItem(booking, { cancellable }) {
       btn.textContent = 'Cancelling…';
       try {
         await api(`/api/bookings/${booking.id}`, { method: 'DELETE' });
+        toast(`Booking on ${booking.date} cancelled`, 'success');
         await load();
       } catch (err) {
         btn.disabled = false;
         btn.textContent = 'Cancel';
-        window.alert(err.message);
+        toast(err.message, 'error');
       }
     });
     li.appendChild(btn);
@@ -83,6 +120,7 @@ async function load() {
     fillList('past-list', 'past-empty', 'past-title', past);
     loading.hidden = true;
     content.hidden = false;
+    tiltAll('.booking-item', 7);
   } catch (err) {
     loading.hidden = true;
     if (err.status === 401) {
@@ -97,5 +135,6 @@ async function load() {
 document.addEventListener('DOMContentLoaded', async () => {
   const user = await initPage({ requireLogin: true });
   if (!user) return;
+  enhancePage();
   await load();
 });

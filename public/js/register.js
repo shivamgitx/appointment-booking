@@ -2,12 +2,45 @@
 
 document.addEventListener('DOMContentLoaded', async () => {
   await initPage();
+  enhancePage();
 
   const form = document.getElementById('register-form');
   const submit = document.getElementById('submit-btn');
   const fields = ['name', 'email', 'password', 'confirm'];
 
   clearFieldErrors([...fields.map((f) => `${f}-error`), 'form-error']);
+
+  /* ---- password strength meter ---- */
+  const strengthBox = document.getElementById('strength');
+  const strengthText = document.getElementById('strength-text');
+  const passwordInput = document.getElementById('password');
+
+  const scorePassword = (value) => {
+    if (!value) return 0;
+    let score = 0;
+    if (value.length >= 8) score++;
+    if (value.length >= 12) score++;
+    if (/[A-Z]/.test(value) && /[a-z]/.test(value)) score++;
+    if (/\d/.test(value) || /[^A-Za-z0-9]/.test(value)) score++;
+    return Math.min(4, score);
+  };
+
+  const STRENGTH_LABELS = ['Too weak', 'Weak', 'Fair', 'Good', 'Strong'];
+
+  passwordInput.addEventListener('input', () => {
+    const value = passwordInput.value;
+    if (!value) {
+      strengthBox.hidden = true;
+      strengthText.hidden = true;
+      strengthBox.className = 'strength';
+      return;
+    }
+    const score = scorePassword(value);
+    strengthBox.hidden = false;
+    strengthText.hidden = false;
+    strengthBox.className = `strength s${score}`;
+    strengthText.textContent = STRENGTH_LABELS[score];
+  });
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -35,11 +68,15 @@ document.addEventListener('DOMContentLoaded', async () => {
       showFieldError('confirm-error', 'Passwords do not match.');
       valid = false;
     }
-    if (!valid) return;
+    if (!valid) {
+      toast('Please fix the highlighted fields', 'error', 2600);
+      return;
+    }
 
     setButtonLoading(submit, true, 'Creating account…');
     try {
       await api('/api/auth/register', { method: 'POST', body: { name, email, password } });
+      toast(`Welcome, ${name.split(' ')[0]}! Your account is ready.`, 'success');
       window.location.href = safeNext(qs('next'));
     } catch (err) {
       setButtonLoading(submit, false);
@@ -50,6 +87,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       } else {
         showFormError('form-error', err.message);
       }
+      toast(err.message, 'error');
     }
   });
 });

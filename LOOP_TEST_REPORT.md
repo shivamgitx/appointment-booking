@@ -106,3 +106,18 @@ register ✅ · log in ✅ · select date & time ✅ · submit booking ✅ · vi
 (+ cancel, validation, security hardening,50/50 automated tests green).
 
 Not verified: live third-party hosting (no target given) — marked NOT TESTED, not claimed.
+
+---
+
+## BEAUTIFICATION ROUND (post-v1) — PASS
+All 15 requested beautifications + 3D effects implemented: gradient hero with
+parallax blobs & typing headline, animated counters, dark mode toggle,
+self-hosted Inter font, glass navbar, SVG icons, 3D hard-shadow buttons with
+ripple, page fade-in, skeleton loading, toasts, progress steps, custom
+calendar, date-chip history cards with badges, split-screen auth with
+floating labels + password strength, illustrated empty states, sticky CTA,
+testimonials, mouse-driven card tilt.
+- Visual QA (Playwright screenshots, light/dark/mobile): 1 bug found & fixed
+  (`[hidden]` overridden by button display — E-08).
+- Console errors during full visual pass: **0**.
+- Regression after changes: **50/50 tests pass** (39 API/DB + 11 E2E).

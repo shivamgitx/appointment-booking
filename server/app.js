@@ -18,7 +18,7 @@ function createApp({ db, now = () => new Date(), authRateLimit }) {
     res.setHeader('Referrer-Policy', 'same-origin');
     res.setHeader(
       'Content-Security-Policy',
-      "default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; form-action 'self'; base-uri 'self'; frame-ancestors 'none'"
+      "default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; font-src 'self'; form-action 'self'; base-uri 'self'; frame-ancestors 'none'"
     );
     next();
   });
